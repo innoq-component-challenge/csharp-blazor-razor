@@ -1,0 +1,42 @@
+<div class="card">
+    <div class="card-body">
+        @if (Href != null)
+        {
+            <a href="@Href">
+                <Hx class="card-title" level="@HeadingLevel">
+                    @Heading
+                </Hx>
+            </a>
+        }
+        else
+        {
+            <Hx class="card-title" level="@HeadingLevel">
+                @Heading
+            </Hx>
+        }
+        @Body
+    </div>
+    @if (Footer != null) {
+        <div class="card-footer">
+            @Footer
+        </div>
+    }
+</div>
+
+@code
+{
+    [Parameter]
+    public int HeadingLevel { get; set; } = 2;
+
+    [Parameter]
+    public String? Href { get; set; }
+
+    [Parameter]
+    public RenderFragment? Body { get; set; }
+
+    [Parameter]
+    public RenderFragment? Heading { get; set; }
+
+    [Parameter]
+    public RenderFragment? Footer { get; set; }
+}

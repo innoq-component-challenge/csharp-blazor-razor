@@ -1,0 +1,24 @@
+@using System.Collections.Generic
+
+<dl class="key-value-list">
+    @foreach (var kvp in Data)
+    {
+        <div class="row" style="display: flex;">
+            <dt style="flex: @KeyRatio;">@kvp.Key</dt>
+            <dd style="flex: @ValueRatio;">@kvp.Value</dd>
+        </div>
+    }
+</dl>
+
+@code {
+    [Parameter] public Dictionary<string, string> Data { get; set; } = new Dictionary<string, string>();
+    [Parameter] public string Ratio { get; set; } = "1:1";
+
+    private string KeyRatio => string.IsNullOrEmpty(Ratio) || !Ratio.Contains(':')
+        ? "1"
+        : Ratio.Split(':')[0];
+
+    private string ValueRatio => string.IsNullOrEmpty(Ratio) || !Ratio.Contains(':')
+        ? "1"
+        : Ratio.Split(':')[1];
+}

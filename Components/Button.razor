@@ -1,0 +1,49 @@
+<button class="btn @VariantClass @Class" @attributes="AddAttributes">
+    @ChildContent
+</button>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string Variant { get; set; } = "secondary";
+
+    [Parameter]
+    public bool Cta { get; set; } = false;
+
+    [Parameter]
+    public string Class { get; set; } = "";
+
+    private Dictionary<string, object> _ExternalAddAttributes;
+
+    private Dictionary<string, object> _InternalAddAttributes = new Dictionary<string, object>() {
+        { "data-demo", "additional internal attribute" },
+        { "data-demo-override", "hello from internal" },
+    };
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AddAttributes {
+        set
+        {
+            _ExternalAddAttributes = value;
+        }
+        get
+        {
+            var mergedDict = new Dictionary<string, object>(_InternalAddAttributes);
+            if (_ExternalAddAttributes != null)
+            {
+                foreach (var attr in _ExternalAddAttributes)
+                {
+                    mergedDict[attr.Key] = attr.Value;
+                }
+            }
+
+            return mergedDict;
+        }
+    }
+
+    private string VariantClass {
+        get => Cta ? "btn-primary" : $"btn-{Variant}";
+    }
+}

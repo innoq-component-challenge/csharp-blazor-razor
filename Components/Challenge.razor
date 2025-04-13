@@ -1,0 +1,182 @@
+<article>
+    <h1>Challenge</h1>
+
+    <section>
+        <h2>Badge</h2>
+        <p>This is a simple <Badge variant="danger">Hot Badge</Badge> with a variant parameter.</p>
+    </section>
+
+    <section>
+        <h2>Button</h2>
+        <p>
+            This is a button component with a bool cta parameter, to set the cta style.<br>
+            It also renders the tag content and accepts additional css classes.
+        </p>
+        <p>
+            <Button cta class="text-uppercase">Call to Action</Button>
+        </p>
+
+        <p>
+            This button accepts a Dictionary to apply additional attributes to the rendered button tag.
+        </p>
+        @code {
+            Dictionary<string, object> Attrs = new Dictionary<string, object> {
+                { "data-foo", "bar" },
+                { "aria-live", "polite" },
+                { "data-demo-override", "hello from external" },
+            };
+        }
+        <p>
+            <Button @attributes="@Attrs">Click</Button>
+        </p>
+
+        <p>
+            This is a button with "fallthrough attributes".
+        </p>
+        <p>
+            <Button type="button" name="action" value="delete">Click</Button>
+        </p>
+
+
+    </section>
+    <section>
+        <h2>Card</h2>
+        <p>
+            A Card with child content and a dynamic heading level set by attributes, heading passed via slot.
+        </p>
+        <p>
+            <Card headinglevel="2">
+                <Heading>Foo</Heading>
+                <Body>
+                    <p class="card-text">Welcome to the <strong>best card</strong></p>
+                </Body>
+            </Card>
+        </p>
+        <p>
+            Wrapping the heading with an anchor.
+        </p>
+        <p>
+            <Card headinglevel="3" href="#foo">
+                <Heading>Foo</Heading>
+                <Body>
+                    <p class="card-text">Welcome to the <strong>best card</strong></p>
+                </Body>
+            </Card>
+        </p>
+        <p>
+            Wrapping the heading with an anchor.
+        </p>
+        <p>
+            <Card headinglevel="3" href="#foo">
+                <Heading>
+                    <span lang="de">Großartige</span> Card
+                </Heading>
+                <Body>
+                    <p class="card-text">Welcome to the <strong>best card</strong></p>
+                </Body>
+            </Card>
+        </p>
+        <p>
+            Add an optional footer.
+        </p>
+        <p>
+            <Card headinglevel="3" href="#foo">
+                <Heading>
+                    <span lang="de">Großartige</span> Card
+                </Heading>
+                <Body>
+                    <p class="card-text">Welcome to the <strong>best card</strong></p>
+                </Body>
+                <Footer>
+                    So <strong>strong</strong>
+                </Footer>
+            </Card>
+        </p>
+    </section>
+
+    <section>
+        <h2>FieldGroup</h2>
+        <p>
+            A FielGroup component.
+        </p>
+        <p>
+            <FieldGroup
+                Label="E-Mail"
+                Id="email"
+                Type="email"
+                Name="email"
+                Value="halp"
+                Error="Invalid Email Address" />
+        </p>
+        <p>
+            A FielGroup component digesting models and an i18n function.
+        </p>
+        @code
+        {
+            Func<string, string> Translate = (string key) => {
+                return key switch
+                {
+                    "invalid_address" => "Die angegebene E-Mail-Adresse ist ungültig",
+                    _ => key
+                };
+            };
+            Dictionary<string, string> model = new Dictionary<string, string>()
+                {
+                    { "email", "halp" }
+                };
+            Dictionary<string, string> errorModel = new Dictionary<string, string>()
+                {
+                    { "email", "invalid_address" }
+                };
+        }
+        <p>
+            <FieldGroupX
+                Label="E-Mail"
+                Field="email"
+                Type="email"
+                Object=@model
+                Error=@errorModel
+                i18n=@Translate />
+        </p>
+    </section>
+    <section>
+        <h2>List</h2>
+        <p>
+            Rendering lists.
+        </p>
+        @code
+        {
+            Dictionary<string, string> lotrFacts = new Dictionary<string, string>()
+                {
+                    { "author", "J.R.R. Tolkien" },
+                    { "published", "1954-1955" },
+                    { "rings", "One Ring to rule them all" },
+                    { "fellowship", "Nine companions against the dark lord" },
+                    { "mordor", "One does not simply walk into Mordor" }
+                };
+        }
+        <List data=@lotrFacts ratio="1:3" />
+    </section>
+
+    <section>
+        <h2>Magic Headers</h2>
+        <p>
+            Magic.
+        </p>
+        @code
+        {
+            int level = 2;
+        }
+        <section>
+            <Outline Level="2" Heading="Level 2">
+                Some text.
+                <Outline Heading="Level 3">
+                    Some more text.
+                    <Outline Heading="Next level ...">
+                        It never stops ...
+                    </Outline>
+                </Outline>
+            </Outline>
+        </section>
+    </section>
+</article>

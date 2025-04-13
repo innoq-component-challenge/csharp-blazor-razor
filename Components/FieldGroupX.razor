@@ -1,0 +1,28 @@
+<FieldGroup
+    Label=@Label
+    Id=@Field
+    Name=@Field
+    Type=@Type
+    Value=@Object[Field]
+    Error=@I18n(Error[Field]) />
+
+@code
+{
+    [Parameter]
+    public string? Label { get; set; }
+
+    [Parameter]
+    public string? Field { get; set; }
+
+    [Parameter]
+    public string? Type { get; set; }
+
+    [Parameter]
+    public Dictionary<string, string> Object { get; set; }
+
+    [Parameter]
+    public Dictionary<string, string> Error { get; set; }
+
+    [Parameter]
+    public Func<string, string>? I18n { get; set; }
+}

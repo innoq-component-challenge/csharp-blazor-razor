@@ -1,0 +1,25 @@
+<CascadingValue Name="OutlineLevel" Value="@(Level + 1)">
+    <Hx Level="Level">@Heading</Hx>
+    @ChildContent
+</CascadingValue>
+
+@code
+{
+    private int? _Level = null;
+
+    [Parameter]
+    public int Level
+    {
+        init => _Level = value;
+        get => _Level ?? OuterLevel;
+    }
+
+    [CascadingParameter(Name="OutlineLevel")]
+    private int OuterLevel { get; set; }
+
+    [Parameter]
+    public string? Heading { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}
